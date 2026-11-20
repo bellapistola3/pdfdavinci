@@ -116,7 +116,7 @@ export const SEO_PAGES: Record<'home' | 'jpg' | 'word' | 'text', PageSeoData> = 
     howToSteps: [
       {
         name: 'Step 1: Upload or Drag & Drop Your PDF File',
-        text: 'Drop your PDF into the double-framed workspace above or click "Select PDF File". You can also click the Instant Demo button to test a synthesized 2-page PDF in RAM.',
+        text: 'Drop your PDF into the double-framed workspace above or click "Select PDF File" to load any document directly into your browser’s local RAM.',
       },
       {
         name: 'Step 2: Choose Your Output Format in 1 Click',
@@ -349,6 +349,19 @@ export const SEO_PAGES: Record<'home' | 'jpg' | 'word' | 'text', PageSeoData> = 
         heading: 'Unmatched Confidentiality for Legal, Financial & Academic Documents',
         paragraphs: [
           'When converting an employment agreement, commercial proposal, resume, or academic thesis from PDF to Word, document confidentiality is non-negotiable. Because PDFDaVinci executes entirely inside your local browser memory, your intellectual property never touches an external server.',
+          'Under European Union GDPR Article 28, US HIPAA privacy standards, and corporate attorney-client privilege rules, uploading confidential documents to third-party cloud converters creates an external sub-processor custody chain. By performing X/Y glyph coordinate matrix sorting and Word document synthesis locally inside your browser’s Web Worker thread, PDFDaVinci guarantees 100% data residency on your own workstation.',
+        ],
+        bullets: [
+          'Coordinate Baseline Clustering: Joins individual PDF text tokens into natural, reflowable Word sentences without hard line breaks at the end of every visual line.',
+          'Multi-Suite UTF-8 BOM Support: Preserves Cyrillic, Latin, Greek, Arabic, CJK, and technical symbols across Microsoft Word, Google Docs, Apple Pages, and LibreOffice Writer.',
+          'Hybrid Visual Snapshot Toggle: Embeds 300 DPI page renders directly inside the .doc file so signatures, stamps, and complex financial tables remain 100% intact.',
+        ],
+      },
+      {
+        heading: 'Best Practices for Editing Converted PDF Documents in Microsoft Word & Google Docs',
+        paragraphs: [
+          'Once your converted .doc file downloads from PDFDaVinci, open it in Microsoft Word (Print Layout view) or upload it to Google Drive and choose "Open with Google Docs". Every original PDF page is separated by a native section break so pagination remains predictable while you edit clauses, update figures, or reformat headings.',
+          'If your source PDF contains scanned image pages, notarized signatures, or multi-column financial balance sheets, simply enable the "Embed high-resolution visual page snapshots" checkbox in the PDF to Word panel before clicking Download.',
         ],
       },
     ],
@@ -416,7 +429,7 @@ export const SEO_PAGES: Record<'home' | 'jpg' | 'word' | 'text', PageSeoData> = 
     howToSteps: [
       {
         name: 'Step 1: Select a PDF File to Parse',
-        text: 'Drop your PDF into PDFDaVinci’s local dropzone or click the Instant Demo button to test right away.',
+        text: 'Drop your PDF into PDFDaVinci’s local dropzone or click "Select PDF File" to parse the document immediately in browser RAM.',
       },
       {
         name: 'Step 2: Inspect & Edit Extracted Text Live',
@@ -446,6 +459,12 @@ export const SEO_PAGES: Record<'home' | 'jpg' | 'word' | 'text', PageSeoData> = 
         heading: 'Built for Researchers, Developers, Writers & AI Workflows',
         paragraphs: [
           'Whether you are preparing PDF reports for AI summarization, auditing document word counts, or migrating legacy PDF documentation into Markdown or CMS platforms, PDFDaVinci delivers clean, unformatted text instantly without exposing proprietary data to external APIs.',
+          'Uploading raw binary PDF files directly to cloud AI chatbots can expose hidden XMP metadata, author IDs, and unredacted personal data while consuming excess context-window tokens. Extracting plain UTF-8 text locally in PDFDaVinci lets you review, redact, and sanitize sensitive names, account numbers, or contract clauses right inside the browser before copying to ChatGPT, Claude, or Gemini.',
+        ],
+        bullets: [
+          'Page-Delimited Citations: Clear page boundary markers allow LLMs and RAG pipelines to cite exact page numbers when answering questions about your document.',
+          'Live Token & Word Estimation: Real-time character and word counters help you size prompts accurately for LLM context windows.',
+          'Zero Hidden Metadata Leaks: Copying clean UTF-8 plain text strips away hidden binary PDF properties, revision histories, and embedded font payloads.',
         ],
       },
     ],

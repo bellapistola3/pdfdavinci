@@ -1,12 +1,13 @@
 import type { MetadataRoute } from 'next';
 import { SITE_URL } from '@/lib/seoConfig';
+import { GUIDE_ARTICLES } from '@/lib/guidesData';
 
 export const dynamic = 'force-static';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
 
-  return [
+  const corePages: MetadataRoute.Sitemap = [
     {
       url: `${SITE_URL}/`,
       lastModified,
@@ -32,7 +33,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.95,
     },
     {
+      url: `${SITE_URL}/guides/`,
+      lastModified,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    ...GUIDE_ARTICLES.map((guide) => ({
+      url: `${SITE_URL}/guides/${guide.slug}/`,
+      lastModified,
+      changeFrequency: 'monthly' as const,
+      priority: 0.85,
+    })),
+    {
       url: `${SITE_URL}/about/`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${SITE_URL}/contact/`,
       lastModified,
       changeFrequency: 'monthly',
       priority: 0.8,
@@ -50,4 +69,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
   ];
+
+  return corePages;
 }

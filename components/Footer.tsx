@@ -54,12 +54,12 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Column 2: PDF Converter Tools */}
+          {/* Column 2: PDF Converter Tools & Technical Guides */}
           <div>
             <h3 className="mb-4 text-xs font-extrabold uppercase tracking-wider text-white">
-              PDF Converter Tools
+              PDF Converter Tools & Guides
             </h3>
-            <ul className="space-y-3 text-sm font-medium">
+            <ul className="space-y-2.5 text-sm font-medium">
               <li>
                 <Link href="/" className="transition hover:text-amber-400">
                   All-in-One PDF Converter
@@ -78,6 +78,27 @@ export default function Footer() {
               <li>
                 <Link href="/pdf-to-text/" className="transition hover:text-amber-400">
                   Extract Plain Text from PDF (.TXT)
+                </Link>
+              </li>
+              <li>
+                <Link href="/guides/" className="font-bold text-indigo-300 transition hover:text-amber-400">
+                  PDF Engineering & Security Guides
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/guides/client-side-vs-cloud-pdf-security/"
+                  className="text-xs text-slate-400 transition hover:text-amber-400"
+                >
+                  → Client-Side RAM vs. Cloud Security Audit
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/guides/how-to-convert-pdf-to-300-dpi-jpg-for-print/"
+                  className="text-xs text-slate-400 transition hover:text-amber-400"
+                >
+                  → 300 DPI Print-Grade PDF to JPG Guide
                 </Link>
               </li>
             </ul>
@@ -119,10 +140,20 @@ export default function Footer() {
                 Company, Legal & Contact
               </h3>
             </div>
-            <ul className="space-y-3 text-sm font-medium">
+            <ul className="space-y-2.5 text-sm font-medium">
               <li>
                 <Link href="/about/" className="transition hover:text-amber-400">
                   About Us & Our Mission
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact/" className="transition hover:text-amber-400">
+                  Contact Us & Official Support
+                </Link>
+              </li>
+              <li>
+                <Link href="/guides/" className="transition hover:text-amber-400">
+                  Technical Guides & Documentation
                 </Link>
               </li>
               <li>
@@ -173,8 +204,14 @@ export default function Footer() {
             >
               support@pdfdavinci.com
             </a>
+            <Link href="/guides/" className="transition hover:text-white">
+              Guides
+            </Link>
             <Link href="/about/" className="transition hover:text-white">
               About Us
+            </Link>
+            <Link href="/contact/" className="transition hover:text-white">
+              Contact Us
             </Link>
             <Link href="/terms/" className="transition hover:text-white">
               Terms of Service

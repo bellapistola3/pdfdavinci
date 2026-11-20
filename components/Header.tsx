@@ -18,13 +18,18 @@ export default function Header({ hasLoadedFile = false, onResetFile }: HeaderPro
     { href: '/pdf-to-jpg/', label: 'PDF to JPG' },
     { href: '/pdf-to-word/', label: 'PDF to Word' },
     { href: '/pdf-to-text/', label: 'PDF to Text' },
+    { href: '/guides/', label: 'Guides' },
     { href: '/about/', label: 'About Us' },
+    { href: '/contact/', label: 'Contact' },
   ];
 
   const isRouteActive = (href: string) => {
     if (href === '/') return pathname === '/';
     const cleanHref = href.replace(/\/$/, '');
     const cleanPath = (pathname || '').replace(/\/$/, '');
+    if (cleanHref === '/guides') {
+      return cleanPath === '/guides' || cleanPath.startsWith('/guides/');
+    }
     return cleanPath === cleanHref;
   };
 
