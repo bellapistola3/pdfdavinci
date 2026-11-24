@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { SITE_URL } from '@/lib/seoConfig';
 import { GUIDE_ARTICLES } from '@/lib/guidesData';
+import { LANDING_PAGES_DATA } from '@/lib/landingPagesData';
 
 export const dynamic = 'force-static';
 
@@ -32,6 +33,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.95,
     },
+    ...Object.values(LANDING_PAGES_DATA).map((landing) => ({
+      url: `${SITE_URL}${landing.urlPath}`,
+      lastModified,
+      changeFrequency: 'weekly' as const,
+      priority: 0.9,
+    })),
     {
       url: `${SITE_URL}/guides/`,
       lastModified,

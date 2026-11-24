@@ -188,6 +188,42 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* Client-Side Features Bar */}
+        <div className="mt-8 pt-6 border-t border-slate-800/60">
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs text-slate-400">
+            <span className="font-bold uppercase tracking-wider text-amber-400/90">
+              Online Features:
+            </span>
+            <Link href="/pages/convert-pdf-to-word/" className="hover:text-amber-300 transition">
+              Convert PDF to Word
+            </Link>
+            <span className="text-slate-700">•</span>
+            <Link href="/pages/compress-pdf-online/" className="hover:text-amber-300 transition">
+              Compress PDF
+            </Link>
+            <span className="text-slate-700">•</span>
+            <Link href="/pages/pdf-to-word-converter-client-side/" className="hover:text-amber-300 transition">
+              Client-Side Word
+            </Link>
+            <span className="text-slate-700">•</span>
+            <Link href="/pages/merge-pdf-online/" className="hover:text-amber-300 transition">
+              Merge PDF
+            </Link>
+            <span className="text-slate-700">•</span>
+            <Link href="/pages/split-pdf-online/" className="hover:text-amber-300 transition">
+              Split PDF
+            </Link>
+            <span className="text-slate-700">•</span>
+            <Link href="/pages/word-to-pdf-converter/" className="hover:text-amber-300 transition">
+              Word to PDF
+            </Link>
+            <span className="text-slate-700">•</span>
+            <Link href="/pages/unlock-pdf-online/" className="hover:text-amber-300 transition">
+              Unlock PDF
+            </Link>
+          </div>
+        </div>
+
         {/* Clean Symmetrical Bottom Copyright & Contact Bar */}
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-slate-800/80 pt-8 text-xs text-slate-400 lg:flex-row">
           <p>© {currentYear} PDFDaVinci (https://pdfdavinci.com). All rights reserved.</p>
