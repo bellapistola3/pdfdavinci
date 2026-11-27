@@ -224,6 +224,34 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* Bulgarian Tools Bar */}
+        <div className="mt-4 pt-3 border-t border-slate-800/40">
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-xs text-slate-400">
+            <span className="font-bold uppercase tracking-wider text-emerald-400/90">
+              🇧🇬 За България:
+            </span>
+            <Link href="/bg/" className="hover:text-emerald-300 transition">
+              PDF Конвертор (BG)
+            </Link>
+            <span className="text-slate-700">•</span>
+            <Link href="/bg/pdf-v-word/" className="hover:text-emerald-300 transition">
+              PDF в Word
+            </Link>
+            <span className="text-slate-700">•</span>
+            <Link href="/bg/namalqne-na-razmer-na-pdf/" className="hover:text-emerald-300 transition">
+              Намаляване на Размер
+            </Link>
+            <span className="text-slate-700">•</span>
+            <Link href="/bg/pdf-v-snimka-jpg/" className="hover:text-emerald-300 transition">
+              PDF в Снимки (JPG)
+            </Link>
+            <span className="text-slate-700">•</span>
+            <Link href="/bg/obedinqvane-na-pdf/" className="hover:text-emerald-300 transition">
+              Обединяване на PDF
+            </Link>
+          </div>
+        </div>
+
         {/* Clean Symmetrical Bottom Copyright & Contact Bar */}
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-slate-800/80 pt-8 text-xs text-slate-400 lg:flex-row">
           <p>© {currentYear} PDFDaVinci (https://pdfdavinci.com). All rights reserved.</p>

@@ -103,6 +103,27 @@ export default function Header({ hasLoadedFile = false, onResetFile }: HeaderPro
             <span className="sm:hidden">Local RAM</span>
           </div>
 
+          {/* Language Switcher */}
+          {pathname?.startsWith('/bg') ? (
+            <Link
+              href="/"
+              title="Switch to English"
+              className="inline-flex items-center gap-1.5 rounded-full border border-indigo-400/40 bg-indigo-500/15 px-3 py-1.5 text-xs font-bold text-indigo-200 transition hover:bg-indigo-500/30 hover:text-white"
+            >
+              <span>🇺🇸</span>
+              <span className="font-semibold">EN</span>
+            </Link>
+          ) : (
+            <Link
+              href="/bg/"
+              title="Превключи на Български"
+              className="inline-flex items-center gap-1.5 rounded-full border border-amber-400/40 bg-amber-500/15 px-3 py-1.5 text-xs font-bold text-amber-300 transition hover:bg-amber-500/30 hover:text-white"
+            >
+              <span>🇧🇬</span>
+              <span className="font-semibold">BG</span>
+            </Link>
+          )}
+
           {hasLoadedFile && onResetFile && (
             <button
               type="button"
