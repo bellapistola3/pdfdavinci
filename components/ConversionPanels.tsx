@@ -45,7 +45,7 @@ export default function ConversionPanels({
 }: ConversionPanelsProps) {
   const [isZipping, setIsZipping] = useState(false);
   const [includeTextInZip, setIncludeTextInZip] = useState(true);
-  const [includeImagesInWord, setIncludeImagesInWord] = useState(false);
+  const [includeImagesInWord, setIncludeImagesInWord] = useState(true);
   const [copiedText, setCopiedText] = useState(false);
   const [editableText, setEditableText] = useState<string | null>(null);
   const [selectedZoomPage, setSelectedZoomPage] = useState<RenderedPage | null>(null);
@@ -251,8 +251,7 @@ export default function ConversionPanels({
                   className="h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
                 />
                 <span>
-                  Embed high-resolution visual page snapshots inside the Word document (ideal for
-                  scanned PDFs & complex tables)
+                  Embed high-resolution visual snapshots inside Word (preserves all formulas, math symbols, diagrams, and inscribed image text)
                 </span>
               </label>
             </div>

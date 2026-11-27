@@ -87,8 +87,9 @@ export async function loadPdfFromRam(file: File) {
 
   const loadingTask = pdfjs.getDocument({
     data: typedArray,
-    cMapUrl: 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/cmaps/',
+    cMapUrl: '/cmaps/',
     cMapPacked: true,
+    standardFontDataUrl: '/standard_fonts/',
     isEvalSupported: false,
     enableXfa: false,
   });
@@ -102,7 +103,10 @@ export async function loadPdfFromRam(file: File) {
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function extractStructuredPageText(page: any): Promise<string> {
-  const textContent = await page.getTextContent();
+  const textContent = await page.getTextContent({
+    includeMarkedContent: true,
+    disableCombineTextItems: false,
+  });
   const items = textContent.items as Array<{
     str?: string;
     transform?: number[];
@@ -245,14 +249,16 @@ export async function processPdfInRam(
 }
 
 /**
- * Generates a Microsoft Word (.doc) compatible document with UTF-8 encoding and page breaks
+ * Generates a Microsoft Word (.doc) compatible document with UTF-8 encoding, page breaks,
+ * and MHTML multipart image embedding for formulas, charts, and scanned diagrams.
  */
 export function createWordDocBlob(
   fileName: string,
   pages: RenderedPage[],
-  includePageImages: boolean = false
+  includePageImages: boolean = true
 ): Blob {
   const cleanTitle = fileName.replace(/\.pdf$/i, '');
+  const boundary = '----=_NextPart_PDFDaVinci_' + Math.random().toString(36).substring(2);
 
   const escapeHtml = (unsafe: string) =>
     unsafe
@@ -261,6 +267,9 @@ export function createWordDocBlob(
       .replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;')
       .replace(/'/g, '&#039;');
+
+  // Track image attachments for MHTML MIME multipart packaging
+  const mimeImageParts: Array<{ location: string; base64: string }> = [];
 
   const pagesHtml = pages
     .map((page, idx) => {
@@ -275,14 +284,24 @@ export function createWordDocBlob(
         )
         .join('\n');
 
-      const fallbackNotice =
-        !paragraphs && !includePageImages
-          ? `<p style="color: #64748b; font-style: italic;">[Page ${page.pageNumber}: No vector text layer detected — enable visual page embedding above or use PDF to JPG mode.]</p>`
-          : '';
+      // Always embed image snapshot if requested OR if the page has no vector text (scanned document / formulas)
+      const shouldEmbedImage = includePageImages || !paragraphs;
+      let imageHtml = '';
 
-      const imageBlock = includePageImages
-        ? `<div style="margin: 12pt 0; text-align: center;"><img src="${page.dataUrl}" width="560" style="max-width: 100%; height: auto; border: 1px solid #e2e8f0;" alt="Page ${page.pageNumber}" /></div>`
-          : '';
+      if (shouldEmbedImage && page.dataUrl) {
+        const imageLocation = `page-${page.pageNumber}-snapshot.jpg`;
+        const base64Data = page.dataUrl.replace(/^data:image\/[a-z]+;base64,/, '');
+        mimeImageParts.push({ location: imageLocation, base64: base64Data });
+
+        imageHtml = `
+          <div style="margin: 14pt 0 16pt 0; text-align: center;">
+            <p style="margin: 0 0 6pt 0; font-size: 9pt; font-weight: bold; color: #4338ca; font-family: 'Arial', sans-serif; text-align: left;">
+              [Page ${page.pageNumber} Visual Content & Formulas (High-Resolution Graphic Layer)]
+            </p>
+            <img src="${imageLocation}" width="620" style="max-width: 100%; height: auto; border: 1px solid #cbd5e1; border-radius: 4px;" alt="Page ${page.pageNumber} Visual Content" />
+          </div>
+        `;
+      }
 
       const pageBreak =
         idx < pages.length - 1
@@ -295,8 +314,7 @@ export function createWordDocBlob(
             <strong>${escapeHtml(cleanTitle)}</strong> — Page ${page.pageNumber} of ${pages.length} (Generated locally with PDFDaVinci.com)
           </p>
           ${paragraphs}
-          ${fallbackNotice}
-          ${imageBlock}
+          ${imageHtml}
         </div>
         ${pageBreak}
       `;
@@ -334,6 +352,37 @@ xmlns="http://www.w3.org/TR/REC-html40">
   ${pagesHtml}
 </body>
 </html>`;
+
+  if (mimeImageParts.length > 0) {
+    const mhtmlParts: string[] = [
+      'MIME-Version: 1.0',
+      `Content-Type: multipart/related; boundary="${boundary}"`,
+      '',
+      `--${boundary}`,
+      'Content-Type: text/html; charset="utf-8"',
+      'Content-Transfer-Encoding: 8bit',
+      '',
+      wordDocumentHtml,
+      '',
+    ];
+
+    for (const part of mimeImageParts) {
+      mhtmlParts.push(`--${boundary}`);
+      mhtmlParts.push('Content-Type: image/jpeg');
+      mhtmlParts.push('Content-Transfer-Encoding: base64');
+      mhtmlParts.push(`Content-Location: ${part.location}`);
+      mhtmlParts.push('');
+      mhtmlParts.push(part.base64);
+      mhtmlParts.push('');
+    }
+
+    mhtmlParts.push(`--${boundary}--`);
+    mhtmlParts.push('');
+
+    return new Blob([mhtmlParts.join('\r\n')], {
+      type: 'application/msword;charset=utf-8',
+    });
+  }
 
   return new Blob(['\ufeff', wordDocumentHtml], {
     type: 'application/msword;charset=utf-8',
